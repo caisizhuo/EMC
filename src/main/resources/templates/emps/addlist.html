@@ -14,26 +14,25 @@
 <style type="text/css">
 /* Chart.js */
 @-webkit-keyframes chartjs-render-animation {from { opacity:0.99
-	
+ 
 }
 
 to {
-	opacity: 1
+ opacity: 1
 }
 
 }
 @keyframes chartjs-render-animation {from { opacity:0.99
-	
+ 
 }
 
 to {
-	opacity: 1
+ opacity: 1
 }
 
-}
-.chartjs-render-monitor {
-	-webkit-animation: chartjs-render-animation 0.001s;
-	animation: chartjs-render-animation 0.001s;
+}.chartjs-render-monitor {
+ -webkit-animation: chartjs-render-animation 0.001s;
+ animation: chartjs-render-animation 0.001s;
 }
 </style>
 </head>
@@ -43,37 +42,39 @@ to {
 		<div class="row">
 			<div th:replace="~{commons/commons::sidebar(active='emps')}"></div>
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-				<h2><a class="btn btn-sm btn-success" th:href="@{/tolist}">添加员工</a></h2>
-				
-				<div class="table-responsive">
-					<table class="table table-striped table-sm">
-						<thead>
-							<tr>
-								<th>id</th>
-								<th>lastname</th>
-								<th>email</th>
-								<th>gender</th>
-								<th>department</th>
-								<th>date</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="emp:${emps}">
-								<td th:text="${emp.getId()}"></td>
-								<td th:text="${emp.getLastName()}"></td>
-								<td th:text="${emp.getEmail()}"></td>
-								<td th:text="${emp.getGender()}"></td>
-								<td th:text="${emp.getDepartment().getDepartmentName()}"></td>
-								<td th:text="${#dates.format(emp.getBirth(),'yyyy-MM-dd')}"></td>
-								<td>
-									<a class="btn btn-sm btn-primary" th:href="@{/modify/}+${(emp.getId())}">修改</a>
-									<a class="btn btn-sm  btn-danger" th:href="@{/delete}">删除</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<form th:action="@{/add}" method="post">
+					<div class="form-group">
+						<label>LastName</label>
+						<input type="text" class="form-control" name="lastName" />
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="text" class="form-control" name="email" />
+					</div>
+					<div class="form-group">
+						<label>Gender</label>
+						<br />
+						<div class="form-check form-check-inline">
+							<input class="from-check-input" type="radio" name="gender" value="1" />
+							<label class="form-check-label">男</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="from-check-input" type="radio" name="gender" value="0" />
+							<label class="form-check-label">女</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>department</label>
+						<select class="form-control" name="department.id">
+							<option th:each="depart:${department}" th:text="${depart.getDepartmentName()}" th:value="${depart.getId()}"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Birth</label>
+						<input class="form-control" name="birth" type="text"/>
+					</div>
+					<button type="submit" class="btn btn-primary">添加</button>
+				</form>
 			</main>
 		</div>
 	</div>
@@ -89,6 +90,6 @@ to {
 		feather.replace()
 	</script>
 	<!-- Graphs -->
-	<script type="text/javascript" th:src="@{/js/Chart.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/Chart.min.js}"></script>	
 </body>
 </html>

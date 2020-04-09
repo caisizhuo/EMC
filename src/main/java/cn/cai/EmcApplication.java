@@ -8,6 +8,7 @@ public class EmcApplication
 {
 	public static void main(String[] args)
 	{
+
 		SpringApplication.run(EmcApplication.class, args);
 	}
 

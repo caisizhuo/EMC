@@ -4,6 +4,12 @@ public class Department
 {
 	private Integer id;
 	private String departmentName;
+	
+
+	public Department()
+	{
+		super();
+	}
 
 	public Department(Integer id, String departmentName)
 	{
